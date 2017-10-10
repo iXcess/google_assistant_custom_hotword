@@ -31,36 +31,25 @@ I assume you have a working Google Assistant from the AIY project. If not, pleas
 
 3. Test record your audio with <code>rec temp.wav</code> and then play it with <code>aplay temp.wav</code> and make sure there is sound output.
 
-4. To make google assistant and snowboy to both use the same output device using dsnooper,<code>nano .asoundrc</code> and paste in:
-<code>
-pcm.dsnooper {
-  type dsnoop
-  ipc_key 816357492
-  ipc_key_add_uid 0
-  ipc_perm 0666
-  slave {
-    pcm "hw:1,0"
-    channels 1
-  }
-}
+4. <code>wget https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian-8.0-1.1.1.tar.bz2</code>
 
-pcm.!default {
-  type asym
-  playback.pcm {
-    type plug
-    slave.pcm "hw:0,0"
-  }
-  capture.pcm {
-    type plug
-    slave.pcm "dsnooper"
-  }
-}</code>
-
-5. <code>wget https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian-8.0-1.1.1.tar.bz2</code>
-
-6. <code>tar zxvf <the downloaded file></code>
+5. <code>tar zxvf <the downloaded file></code>
   
-7. Create a custom hotword of your choice in snowboy and download the .pmdl file into the same directory.
+6. Create a custom hotword of your choice in snowboy and download the .pmdl file into the same directory.
 
-8. 
+7. <code>git clone https://github.com/iXcess/google_assistant_custom_hotword</code>
+
+8. Move the .asoundrc file to home directory and the trigger_ga.py to the same directory as the .pmdl file.
+
+9. Use a male-to-male jumper wire to connect raspberry pi GPIO pin 23 to GND.
+
+10. Run the python script with <code>python2 trigger_ga.py <your .pmdl file here></code>. Then run <code>python3 /home/pi/voice-recognizer-raspi/src/main.py</code>.
+
+11. Test it out with your custom wake word.
+  
+<h4>Misc</h4>
+
+This method works because we have editted the .asoundrc to let both google assistant and snowboy to use the same audio output with dsnoop. Please keep in mind that snowboy is written in python 2 while google assistant is written in python 3.
+
+
 
