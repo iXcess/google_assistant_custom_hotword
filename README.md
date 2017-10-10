@@ -24,11 +24,15 @@ Ref website: http://docs.kitt.ai/snowboy/
 I assume you have a working Google Assistant from the AIY project. If not, please visit https://github.com/google/aiyprojects-raspbian/blob/master/HACKING.md for installation.
 
 <h4>Steps</h4> 
-1. <code>sudo apt-get install python-pyaudio python3-pyaudio sox</code> 
-2. <code>pip install pyaudio</code> , if you do not have pip installed, refer https://pip.pypa.io/en/stable/installing/
-3. Test record your audio with <code>rec temp.wav</code> and then play it with <code>aplay temp.wav</code> and make sure there is sound output.
-4. To make google assistant and snowboy to both use the same output device using dsnooper,<code>nano .asoundrc</code> and paste in:
 
+1. <code>sudo apt-get install python-pyaudio python3-pyaudio sox</code> 
+
+2. <code>pip install pyaudio</code> , if you do not have pip installed, refer https://pip.pypa.io/en/stable/installing/
+
+3. Test record your audio with <code>rec temp.wav</code> and then play it with <code>aplay temp.wav</code> and make sure there is sound output.
+
+4. To make google assistant and snowboy to both use the same output device using dsnooper,<code>nano .asoundrc</code> and paste in:
+<code>
 pcm.dsnooper {
   type dsnoop
   ipc_key 816357492
@@ -50,9 +54,11 @@ pcm.!default {
     type plug
     slave.pcm "dsnooper"
   }
-}
+}</code>
 
 5. <code>wget https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian-8.0-1.1.1.tar.bz2</code>
+
 6. <code>tar zxvf <the downloaded file></code>
+  
 7. 
 
