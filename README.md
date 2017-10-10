@@ -1,5 +1,5 @@
-# google_assistant_custom_hotword
-This documentation utilises snowboy's trained and locally stored ASR(Automatic Speech Recogniton) on raspberry pi as custom wakeword for the AIY HAT Google Assistant. It uses the button trigger method on raspberry pi GPIO pin 23.
+# Google Assistant Custom Wakeword
+This documentation utilises snowboy's trained and locally stored ASR(Automatic Speech Recogniton) on raspberry pi as <strong>custom wakeword</strong> for the <strong>AIY HAT Google Assistant</strong>. It uses the <strong>button trigger method</strong> on raspberry pi GPIO pin 23.
 
 <h1>What is snowboy?</h1>
 
@@ -21,4 +21,38 @@ Snowboy is:
 
 Ref website: http://docs.kitt.ai/snowboy/
 
+I assume you have a working Google Assistant from the AIY project. If not, please visit https://github.com/google/aiyprojects-raspbian/blob/master/HACKING.md for installation.
+
+<h4>Steps</h4> 
+1. <code>sudo apt-get install python-pyaudio python3-pyaudio sox</code> 
+2. <code>pip install pyaudio</code> , if you do not have pip installed, refer https://pip.pypa.io/en/stable/installing/
+3. Test record your audio with <code>rec temp.wav</code> and then play it with <code>aplay temp.wav</code> and make sure there is sound output.
+4. To make google assistant and snowboy to both use the same output device using dsnooper,<code>nano .asoundrc</code> and paste in:
+
+pcm.dsnooper {
+  type dsnoop
+  ipc_key 816357492
+  ipc_key_add_uid 0
+  ipc_perm 0666
+  slave {
+    pcm "hw:1,0"
+    channels 1
+  }
+}
+
+pcm.!default {
+  type asym
+  playback.pcm {
+    type plug
+    slave.pcm "hw:0,0"
+  }
+  capture.pcm {
+    type plug
+    slave.pcm "dsnooper"
+  }
+}
+
+5. <code>wget https://s3-us-west-2.amazonaws.com/snowboy/snowboy-releases/rpi-arm-raspbian-8.0-1.1.1.tar.bz2</code>
+6. <code>tar zxvf <the downloaded file></code>
+7. 
 
