@@ -1,7 +1,7 @@
 # Google Assistant Custom Wakeword
 This documentation utilises snowboy's trained and locally stored ASR(Automatic Speech Recogniton) on raspberry pi as <strong>custom wakeword</strong> for the <strong>AIY HAT Google Assistant</strong>. It uses the <strong>button trigger method</strong> on raspberry pi GPIO pin 23.
 
-<h1>What is snowboy?</h1>
+<h3>What is snowboy?</h3>
 
 Introduction
 Snowboy is an highly customizable hotword detection engine that is embedded real-time and is always listening (even when off-line) compatible with Raspberry Pi, (Ubuntu) Linux, and Mac OS X.
@@ -60,5 +60,7 @@ pcm.!default {
 
 6. <code>tar zxvf <the downloaded file></code>
   
-7. 
+7. Create a custom hotword of your choice in snowboy and download the .pmdl file into the same directory.
+
+8. 
 
